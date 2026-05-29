@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Clintech Co — Access Granted</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#f5f5f7;--surface:#ffffff;--border:rgba(0,0,0,0.08);
+  --text:#1d1d1f;--text2:#6e6e73;--text3:#aeaeb2;
+  --blue:#0071e3;--blue-dark:#0058b0;--blue-light:#e8f0fd;
+  --success:#34c759;--radius-md:14px;--radius-xl:28px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.page{max-width:420px;margin:0 auto;padding:0 16px 60px}
+.header{text-align:center;padding:44px 0 28px}
+.success-ring{width:72px;height:72px;border-radius:50%;background:#e8faf0;border:2px solid var(--success);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:32px;animation:pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.header h1{font-size:26px;font-weight:700;letter-spacing:-0.5px}
+.header p{font-size:15px;color:var(--text2);margin-top:4px}
+.section-title{font-size:13px;font-weight:600;color:var(--text2);letter-spacing:0.3px;text-transform:uppercase;margin:24px 0 10px 4px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:16px}
+.cred-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+.cred-row:last-child{border-bottom:none}
+.cred-key{font-size:13px;color:var(--text2)}
+.cred-right{display:flex;align-items:center;gap:10px}
+.cred-val{font-size:18px;font-weight:700;letter-spacing:1px}
+.cred-val.small{font-size:13px;letter-spacing:0;font-weight:500}
+.copy-btn{background:var(--blue-light);border:none;color:var(--blue);font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.copy-btn:hover{background:#cce0ff}
+.copy-btn.done{background:#e8faf0;color:var(--success)}
+.step{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:22px;height:22px;min-width:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.step-text{font-size:14px;color:var(--text2);line-height:1.5;padding-top:2px}
+.step-text b{color:var(--text)}
+.back-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xl);padding:16px;font-size:17px;font-weight:600;cursor:pointer;margin-top:8px;font-family:inherit;transition:all 0.18s}
+.back-btn:hover{background:var(--blue-dark)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="success-ring">✓</div>
+    <h1>Access Granted!</h1>
+    <p>Your WiFi credentials are ready. Save them.</p>
+  </div>
+
+  <div class="section-title">Your Login Credentials</div>
+  <div class="card">
+    <div class="cred-row">
+      <span class="cred-key">Username</span>
+      <div class="cred-right">
+        <span class="cred-val" id="cred-user">—</span>
+        <button class="copy-btn" onclick="copyVal('cred-user',this)">Copy</button>
+      </div>
+    </div>
+    <div class="cred-row">
+      <span class="cred-key">Password</span>
+      <div class="cred-right">
+        <span class="cred-val" id="cred-pass">—</span>
+        <button class="copy-btn" onclick="copyVal('cred-pass',this)">Copy</button>
+      </div>
+    </div>
+    <div class="cred-row">
+      <span class="cred-key">Package</span>
+      <span class="cred-val" style="font-size:14px" id="cred-pkg">—</span>
+    </div>
+    <div class="cred-row">
+      <span class="cred-key">Expires</span>
+      <span class="cred-val small" id="cred-exp">—</span>
+    </div>
+  </div>
+
+  <div class="section-title">How to Connect</div>
+  <div class="card">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Stay connected to <b>Clintech Co</b> WiFi</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Open your browser — a login page will appear automatically</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Enter your <b>Username</b> and <b>Password</b> from above</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text">Tap <b>Login</b> and enjoy your internet!</div></div>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='/'">Buy Another Package</button>
+</div>
+<script>
+const p = new URLSearchParams(window.location.search);
+document.getElementById('cred-user').textContent = p.get('username') || '—';
+document.getElementById('cred-pass').textContent = p.get('password') || '—';
+document.getElementById('cred-pkg').textContent = p.get('package') || '—';
+const exp = p.get('expires');
+if (exp) {
+  document.getElementById('cred-exp').textContent = new Date(exp).toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' });
+}
+function copyVal(id, btn) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+    btn.textContent = 'Copied!'; btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
